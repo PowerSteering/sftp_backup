@@ -1,0 +1,18 @@
+[Sep 2 19:10:00] Backup v.24
+[Sep 2 19:10:00] (c) 2013 Lee Wintringham, PowerSteering by Upland
+[Sep 2 19:10:00] Executing File Backup for: things
+[Sep 2 19:10:00] Archive OK
+[Sep 2 19:10:00] Encrypt Success
+[Sep 2 19:10:00] Securley Deleteing Source File
+[Sep 2 19:10:01] Sending file things_Sep-2-2013-19_10_00.tgz
+[Sep 2 19:10:01] Checking for Expired Backups on remote host
+[Sep 2 19:10:01] Done
+[Sep 2 19:10:58] Backup v.24
+[Sep 2 19:10:58] (c) 2013 Lee Wintringham, PowerSteering by Upland
+[Sep 2 19:10:58] Executing File Backup for: things
+[Sep 2 19:10:58] Archive OK
+[Sep 2 19:10:58] Encrypt Success
+[Sep 2 19:10:58] Securley Deleteing Source File
+[Sep 2 19:10:59] Sending file things_Sep-2-2013-19_10_58.tgz
+[Sep 2 19:10:59] Checking for Expired Backups on remote host
+[Sep 2 19:10:59] Done

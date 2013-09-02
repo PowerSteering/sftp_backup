@@ -53,14 +53,13 @@ use constant INFO => '(c) 2013 Lee Wintringham, PowerSteering by Upland';
 #     db - Database Name
 #     user - Database User
 #     pass - Database Password
+#     encrypt - (Beta) Value is '1' for encrypt. '0' to disable.
 #
 # file - Backup a file or directory
 #   Required Attributes:
 #     type - Value must be 'file'
 #     path - Path to file or directory
-# 
-# Optional Attributes:
-#   encrypt - (Beta) Value must be '1' for encrypt
+#     encrypt - (Beta) Value is '1' for encrypt. '0' to disable.
 #
 #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
 # Settings
@@ -145,7 +144,7 @@ my $head = <<HEAD;
   <h1>Backup Report</h1>
   <h2>Input Objects:</h2>
   <table>
-  <tr> <td class=\"header1\">Object</td> <td class=\"header1\">Type</td> <td class=\"header1\">Output</td> <td class=\"header1\">Size</td></tr>
+  <tr> <td class=\"header1\">Object</td> <td class=\"header1\">Type</td> <td class=\"header1\">Encryption</td> <td class=\"header1\">Output</td> <td class=\"header1\">Size</td></tr>
 HEAD
 
 my $foot = <<FOOT;
@@ -189,6 +188,7 @@ foreach my $name (sort keys %items) {
 
 sub backupMysql {
   my $name = shift;
+  my $enc = 'No';
   logme("Executing MySQL Backup for: $name");
   my $mysqldb = $items{$name}{'db'};
   my $mysqluser = $items{$name}{'user'};
@@ -208,15 +208,17 @@ sub backupMysql {
     if ( $? != 0) {
       return;
     }
+   $enc = 'Yes';
   }
   my $fileSize = getSize("$holdingdir/$outfile");
-  push(@report,"<tr> <td class=\"$bgcolor\">$name</td> <td class=\"$bgcolor\">MySQL</td> <td class=\"$bgcolor\">$outfile</td> <td class=\"$bgcolor\">$fileSize</td> </tr>");
+  push(@report,"<tr> <td class=\"$bgcolor\">$name</td> <td class=\"$bgcolor\">MySQL</td> <td class=\"$bgcolor\">$enc</td> <td class=\"$bgcolor\">$outfile</td> <td class=\"$bgcolor\">$fileSize</td> </tr>");
   push (@filelist,$outfile);
   return 0;
 }
 
 sub backupFile {
   my $name = shift;
+  my $enc = 'No';
   logme("Executing File Backup for: $name");
   my $path = $items{$name}{'location'};
   my $outfile =  $name . '_' . $tstamp . '.tgz';
@@ -232,9 +234,10 @@ sub backupFile {
     if ($? != 0) {
       return;
     }
+    $enc = 'Yes';
   }
   my $fileSize = getSize("$holdingdir/$outfile");
-  push(@report,"<tr> <td class=\"$bgcolor\">$name</td> <td class=\"$bgcolor\">File</td> <td class=\"$bgcolor\">$outfile</td> <td class=\"$bgcolor\">$fileSize</td> </tr>");
+  push(@report,"<tr> <td class=\"$bgcolor\">$name</td> <td class=\"$bgcolor\">File</td> <td class=\"$bgcolor\">$enc</td> <td class=\"$bgcolor\">$outfile</td> <td class=\"$bgcolor\">$fileSize</td> </tr>");
   push (@filelist,$outfile);
   return 0;
 }

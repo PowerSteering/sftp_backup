@@ -1,0 +1,55 @@
+DEPENDENCIES 
+
+  Net::SFTP::Foreign (libnet-sftp-foreign-perl)
+
+LICENSE
+
+  Copyright (C) 2013  Lee Wintringham, PowerSteering Software
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+INSTRUCTIONS
+
+ 1. Set values for email report and SFTP credentials.
+ 2. Add objects to the %items data structure. 
+   - Objects must have a valid 'type' attribute.
+   - Object names must be unique.
+   - Backups are processed alphabetically by object name.
+
+   'ObjectName' => {
+     type => 'value',
+     attribute => 'value', 
+    },
+
+OBJECT TYPES
+
+ mysql - Backup a local MySQL database
+   Required Attributes:
+     type - Value must be 'mysql'
+     db - Database Name
+     user - Database User
+     pass - Database Password
+
+ file - Backup a file or directory
+   Required Attributes:
+     type - Value must be 'file'
+     path - Path to file or directory
+
+ Optional Attributes:
+   encrypt - (Beta) Value must be '1' for encrypt
+
+ENCRYPTED BACKUPS
+
+ Backup files are encrypted with openssl symmetric encryption.
+ Use the supplied scripe decrypt_backup.sh to decrypt files.
+
